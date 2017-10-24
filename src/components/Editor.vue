@@ -3,7 +3,11 @@
     <h1>Editor</h1>
 
     <section class="editor">
-      <codemirror v-model="code" :options="editorOptions"></codemirror>
+      <codemirror
+        v-model="code"
+        :options="editorOptions"
+        @change="onEditorCodeChange"
+      ></codemirror>
     </section>
 
     <h2>Result</h2>
@@ -15,6 +19,7 @@
 
 <script>
   import { codemirror } from 'vue-codemirror'
+  import store from '../store'
 
   export default {
     components: {codemirror},
@@ -35,7 +40,16 @@
           highlightSelectionMatches: { showToken: /\w/, annotateScrollbar: true }
         }
       }
+    },
+    methods: {
+      onEditorCodeChange (newCode) {
+        store.commit('code', encode(newCode))
+      }
     }
+  }
+
+  function encode (string) {
+    return window.btoa(string)
   }
 </script>
 

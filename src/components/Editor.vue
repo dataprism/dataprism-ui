@@ -8,6 +8,8 @@
         :options="editorOptions"
         @change="onEditorCodeChange"
       ></codemirror>
+
+      <v-btn v-on:click="onEditorSave(code)" color="primary" dark>Save</v-btn>
     </section>
 
     <h2>Result</h2>
@@ -43,7 +45,10 @@
     },
     methods: {
       onEditorCodeChange (newCode) {
-        store.commit('code', encode(newCode))
+        // -- do nothing
+      },
+      onEditorSave () {
+        store.commit('code', encode(this.code))
       }
     }
   }

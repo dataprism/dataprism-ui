@@ -4,13 +4,17 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  code: {
-    language: 'javascript',
-    blob: null
+  state: {
+    request: {
+      language: 'javascript',
+      instanceCount: 1,
+      name: 'a_testing_script',
+      payload: null
+    }
   },
   mutations: {
     code (state, blob) {
-      state.blob = blob
+      state.request.payload = blob
     }
   }
 })

@@ -1,7 +1,7 @@
 <template>
-  <div class="hello">
+  <div class="view">
 
-
+    <h3>editor</h3>
     <editor></editor>
 
 
@@ -9,11 +9,11 @@
 </template>
 
 <script>
-  import Editor from './Editor'
+  import Editor from '../Editor'
 
   export default {
     components: {Editor},
-    name: 'HelloWorld',
+    name: 'EditPage',
     data () {
       return {
       }

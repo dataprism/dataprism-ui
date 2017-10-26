@@ -1,34 +1,61 @@
 <template>
-  <section>
-    <h1>Editor</h1>
-
     <section class="editor">
+      <v-form v-model="valid">
+        <v-text-field
+          label="Snippet name"
+          v-model="name"
+          :rules="nameRules"
+          :counter="10"
+          required
+        ></v-text-field>
+      </v-form>
+
+      <v-select
+        v-bind:items="test"
+        v-model="lang"
+        label="Language"
+        single-line
+        bottom
+      ></v-select>
+
       <codemirror
         v-model="code"
         :options="editorOptions"
         @change="onEditorCodeChange"
       ></codemirror>
 
-      <v-btn v-on:click="onEditorSave(code)" color="primary" dark>Save</v-btn>
+      <send-btn v-on:send="onEditorSave" :busy="busy"></send-btn>
     </section>
-
-    <h2>Result</h2>
-    <p>
-      <span v-html="code"></span>
-    </p>
-  </section>
 </template>
 
 <script>
   import { codemirror } from 'vue-codemirror'
-  import store from '../store'
+  import dispatch from '../services/dispatch'
+  import SendBtn from './SendBtn'
 
   export default {
-    components: {codemirror},
+    components: {codemirror, SendBtn},
     name: 'Editor',
+    computed: {
+      busy () {
+        return this.$store.state.request.pending
+      }
+    },
     data () {
       return {
+        valid: false,
         code: '<!-- code goes here -->',
+        name: '',
+        test: [
+          { text: 'JavaScript' },
+          { text: 'Java' },
+          { text: 'Assembly' }
+        ],
+        lang: null,
+        nameRules: [
+          (v) => !!v || 'Name is required',
+          (v) => v.length <= 20 || 'Name must be less than 20 characters'
+        ],
         editorOptions: {
           tabSize: 4,
           mode: 'text/javascript',
@@ -48,7 +75,26 @@
         // -- do nothing
       },
       onEditorSave () {
-        store.commit('code', encode(this.code))
+        this.$store.commit('code', encode(this.code))
+        this.$store.commit('send')
+
+        dispatch.send(this.$store.state.request)
+          .then(this.onSaveSuccess, this.onSaveError)
+      },
+      onSaveSuccess (resp) {
+        this.$store.commit('receive')
+
+        const valOnResp = true
+
+        if (valOnResp) {
+          console.log('success!')
+        } else {
+          console.warn('failed to save code')
+        }
+      },
+      onSaveError (err) {
+        this.$store.commit('receive')
+        console.warn(err)
       }
     }
   }

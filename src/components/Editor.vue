@@ -8,15 +8,13 @@
           :counter="10"
           required
         ></v-text-field>
+
+        <v-radio-group v-model="lang" :mandatory="true">
+          <v-radio v-for="item in items" :label="item.text" :value="item.val" dark></v-radio>
+        </v-radio-group>
       </v-form>
 
-      <v-select
-        v-bind:items="test"
-        v-model="lang"
-        label="Language"
-        single-line
-        bottom
-      ></v-select>
+
 
       <codemirror
         v-model="code"
@@ -46,10 +44,10 @@
         valid: false,
         code: '<!-- code goes here -->',
         name: '',
-        test: [
-          { text: 'JavaScript' },
-          { text: 'Java' },
-          { text: 'Assembly' }
+        items: [
+          { text: 'JavaScript', val: 'js' },
+          { text: 'Java', val: 'java' },
+          { text: 'Assembly', val: 'assembly' }
         ],
         lang: null,
         nameRules: [

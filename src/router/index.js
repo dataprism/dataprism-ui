@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Edit from '@/components/pages/EditPage'
+import EditPage from '@/components/pages/EditPage'
+import InstancePage from '@/components/pages/InstancePage'
 
 Vue.use(Router)
 
@@ -9,7 +10,12 @@ export default new Router({
     {
       path: '/',
       name: 'Pages',
-      component: Edit
+      component: EditPage
+    },
+    {
+      path: '/instances',
+      name: 'Instances',
+      component: InstancePage
     }
   ]
 })

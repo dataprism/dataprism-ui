@@ -1,7 +1,6 @@
 <template>
   <div class="view">
 
-    <h3>editor</h3>
     <editor></editor>
 
 

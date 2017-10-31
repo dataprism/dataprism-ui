@@ -1,6 +1,6 @@
-# marbles
+# dataprism-kfunc-ui
 
-> A Vue frontend application used for editing generating Kafka Streams code.
+> A Vue frontend application used for editing generating Kafka Streams code snippets.
 
 ## Build Setup
 

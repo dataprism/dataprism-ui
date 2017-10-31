@@ -1,35 +1,44 @@
 <template>
-  <div class="view instances">
+  <div class="view page-instances">
 
     <div class="center">
-      <img src="https://media2.giphy.com/media/3oEjHQKtDXpeGN9rW0/giphy.gif" alt="">
-      <br>
-      <pre>                      __ __ ____
-                     / //_// __/_  ______  _____
-     ____________   / ,<  / /_/ / / / __ \/ ___/  ____________
-    /_____/_____/  / /| |/ __/ /_/ / / / / /__   /_____/_____/
-                  /_/ |_/_/  \__,_/_/ /_/\___/
-                                                              </pre>
+
+      <v-layout column>
+        <!-- use object instead? -->
+        <logic
+          v-for="logic in logics"
+          :name = "logic.name"
+          :status = "logic.status"
+          :lang = "logic.lang"
+          :code = "logic.code"
+          :version = "logic.version"
+        ></logic>
+      </v-layout>
+
     </div>
 
   </div>
 </template>
 
 <script>
+  import Logic from '@/components/Logic'
 
+  export default {
+    components: {Logic},
+    name: 'InstancePage',
+    computed: {
+      logics () {
+        return this.$store.state.logics
+      }
+    },
+    data () {
+      return {
+
+      }
+    }
+  }
 </script>
 
 <style scoped>
-  .center {
-    text-align: center;
-  }
 
-  .center pre {
-    display: inline-block;
-    text-align: left;
-  }
-
-  .center img {
-    width: 300px;
-  }
 </style>

@@ -4,6 +4,7 @@
       <div>
         <router-link to="/"><v-btn flat color="primary">Editor</v-btn></router-link>
         <router-link to="/instances"><v-btn flat color="primary">Instances</v-btn></router-link>
+        <router-link to="/about"><v-btn flat color="primary">About</v-btn></router-link>
       </div>
 
     </header>

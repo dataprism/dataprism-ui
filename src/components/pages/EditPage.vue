@@ -1,7 +1,7 @@
 <template>
   <div class="view page-edit">
 
-    <editor></editor>
+    <editor :logic="logic"></editor>
 
 
   </div>
@@ -12,6 +12,13 @@
 
   export default {
     components: {Editor},
+    computed: {
+      logic () {
+        return this.$route.query.logicId ? this.$store.state.logics.filter(el => {
+          return el.id === this.$route.query.logicId
+        }).shift() : null
+      }
+    },
     name: 'EditPage',
     data () {
       return {

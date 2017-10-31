@@ -1,24 +1,22 @@
 <template>
-  <div class="view page-instances">
-
-    <div class="center">
-
-      <v-layout column>
+  <v-container fluid fill-height>
+    <v-layout column>
+      <v-flex xs12 sm6 offset-sm3>
         <!-- use object instead? -->
         <logic
           v-for="logic in logics"
+          v-on:edit="onEdit"
           :key="logic.id"
           :name = "logic.name"
           :status = "logic.status"
           :lang = "logic.lang"
-          :code = "logic.code"
+          :code = "logic.description"
           :version = "logic.version"
+          :id = "logic.id"
         ></logic>
-      </v-layout>
-
-    </div>
-
-  </div>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
@@ -35,6 +33,15 @@
     data () {
       return {
 
+      }
+    },
+    methods: {
+      onEdit (logicId) {
+        console.log('editing logic with id ', logicId)
+        this.$router.push({
+          name: 'Editor',
+          query: { logicId: logicId }
+        })
       }
     }
   }

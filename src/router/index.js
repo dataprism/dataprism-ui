@@ -9,12 +9,12 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'Pages',
+      path: '/edit',
+      name: 'Editor',
       component: EditPage
     },
     {
-      path: '/instances',
+      path: '/',
       name: 'Instances',
       component: InstancePage
     },

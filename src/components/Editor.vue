@@ -1,29 +1,43 @@
 <template>
-    <section class="editor">
-      <v-form v-model="valid">
-        <v-text-field
-          label="Snippet name"
-          v-model="name"
-          :rules="nameRules"
-          :counter="10"
-          required
-        ></v-text-field>
+  <v-container grid-list-md>
+    <v-layout row wrap>
 
-        <v-radio-group v-model="lang" :mandatory="true">
-          <v-radio v-for="item in items" :label="item.text" :value="item.val" :key="item.val" dark></v-radio>
-        </v-radio-group>
-      </v-form>
+      <v-flex xs12>
+        <v-form v-model="valid">
+          <v-text-field
+            label="Snippet name"
+            v-model="logic.name"
+            :rules="nameRules"
+            :counter="10"
+            required
+          ></v-text-field>
 
+          <!--<v-radio-group v-model="lang" :mandatory="true">-->
+          <!--<v-radio v-for="item in items" :label="item.text" :value="item.val" :key="item.val" dark></v-radio>-->
+          <!--</v-radio-group>-->
+        </v-form>
+      </v-flex>
 
+      <v-flex xs6>
+        <codemirror
+          class="align-left"
+          v-model="logic.code"
+          :options="editorOptionsCode"
+          @change="onEditorCodeChange"
+        ></codemirror>
+      </v-flex>
 
-      <codemirror
-        v-model="code"
-        :options="editorOptions"
-        @change="onEditorCodeChange"
-      ></codemirror>
+      <v-flex xs6>
+        <codemirror
+          class="align-left"
+          v-model="logic.description"
+          :options="editorOptionsDesc"
+        ></codemirror>
+      </v-flex>
 
       <send-btn v-on:send="onEditorSave" :busy="busy"></send-btn>
-    </section>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
@@ -34,6 +48,7 @@
   export default {
     components: {codemirror, SendBtn},
     name: 'Editor',
+    props: ['logic'],
     computed: {
       busy () {
         return this.$store.state.request.pending
@@ -54,11 +69,17 @@
           (v) => !!v || 'Name is required',
           (v) => v.length <= 20 || 'Name must be less than 20 characters'
         ],
-        editorOptions: {
+        editorOptionsDesc: {
+          tabSize: 4,
+          mode: 'text/x-markdown',
+          theme: 'base16-dark',
+          lineNumbers: false
+        },
+        editorOptionsCode: {
           tabSize: 4,
           mode: 'text/javascript',
           theme: 'base16-dark',
-          lineNumbers: true,
+          lineNumbers: false,
           line: true,
           extraKeys: { 'Ctrl': 'autocomplete' },
           foldGutter: true,
@@ -103,7 +124,7 @@
 </script>
 
 <style scoped>
-  .editor {
+  .align-left {
     text-align: left;
     padding: 25px 50px;
     box-sizing: border-box;

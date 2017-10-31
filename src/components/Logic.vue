@@ -1,20 +1,19 @@
 <template>
-  <v-flex xs12 sm6 offset-sm3>
-    <v-card class="ma-1">
-      <v-card-actions class="white">
+    <v-card class="ma-3">
+      <v-card-actions class="secondary">
         <v-icon left v-if="status == 'error'" color="orange">error_outline</v-icon>
-        <v-icon left v-if="status == 'ok'" color="green">done</v-icon>
+        <v-icon left v-if="status == 'ok'" color="lime">done</v-icon>
 
         <div class="headline">{{ name }}</div>
         <v-spacer></v-spacer>
 
-        <v-chip v-show="!show" color="primary" text-color="white">{{ lang }}</v-chip>
+        <v-chip outline v-show="!show" color="info">{{ lang }}</v-chip>
 
-        <v-btn v-show="show" flat icon color="primary">
+        <v-btn v-show="show" flat icon color="primary" @click.native="onEdit(id)">
           <v-icon>mode_edit</v-icon>
         </v-btn>
 
-        <v-btn icon @click.native="toggleExpand()">
+        <v-btn icon @click.native="onToggleExpand()">
           <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
         </v-btn>
       </v-card-actions>
@@ -25,7 +24,6 @@
         </v-card-text>
       </v-slide-y-transition>
     </v-card>
-  </v-flex>
 </template>
 
 <script>
@@ -36,16 +34,21 @@
       'vue-markdown': VueMarkdown
     },
     name: 'logic',
-    props: ['name', 'lang', 'status', 'version', 'code'],
+    props: ['name', 'lang', 'status', 'version', 'code', 'id'],
     data () {
       return {
         show: false
       }
     },
     methods: {
-      toggleExpand () {
+      onToggleExpand () {
         this.show = !this.show
+      },
+
+      onEdit (logicId) {
+        this.$emit('edit', logicId)
       }
+
     }
   }
 </script>

@@ -8,79 +8,60 @@
         <div class="headline">{{ name }}</div>
         <v-spacer></v-spacer>
 
-        <v-chip color="primary" text-color="white">{{ lang }}</v-chip>
-        <v-chip color="primary" text-color="white">V{{ version }}</v-chip>
+        <v-chip v-show="!show" color="primary" text-color="white">{{ lang }}</v-chip>
+
+        <v-btn v-show="show" flat icon color="primary">
+          <v-icon>mode_edit</v-icon>
+        </v-btn>
 
         <v-btn icon @click.native="toggleExpand()">
           <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
         </v-btn>
       </v-card-actions>
 
-      <!--<v-slide-y-transition>-->
+      <v-slide-y-transition>
         <v-card-text v-show="show">
-          <codemirror
-            :id="name + '_editor'"
-            v-model="code"
-            :options="editorOptions"
-            @focus="onEditorFocus"
-            @ready="onEditorReady"
-          ></codemirror>
+          <vue-markdown class="markdown" :source="code"></vue-markdown>
         </v-card-text>
-      <!--</v-slide-y-transition>-->
+      </v-slide-y-transition>
     </v-card>
   </v-flex>
 </template>
 
 <script>
-  import { codemirror } from 'vue-codemirror'
+  import VueMarkdown from 'vue-markdown'
 
   export default {
-    components: {codemirror},
-    name: 'Logic',
+    components: {
+      'vue-markdown': VueMarkdown
+    },
+    name: 'logic',
     props: ['name', 'lang', 'status', 'version', 'code'],
     data () {
       return {
-//        name: 'logic_name',
-//        status: 'ok',
-//        lang: 'JavaScript',
-//        version: 1,
-        show: false,
-//        code: '// == code goes here == //',
-        editor: null,
-        editorOptions: {
-          readOnly: true,
-          tabSize: 4,
-          mode: 'text/javascript',
-          theme: 'base16-dark',
-          lineNumbers: true,
-          line: true,
-          extraKeys: { 'Ctrl': 'autocomplete' },
-          gutters: ['CodeMirror-linenumbers'],
-          styleSelectedText: true,
-          highlightSelectionMatches: { showToken: /\w/, annotateScrollbar: true }
-        }
+        show: false
       }
     },
     methods: {
       toggleExpand () {
         this.show = !this.show
-
-        // -- how do i detect when editor is ready?
-        window.setTimeout(() => {
-          this.editor.refresh()
-        }, 100)
-      },
-      onEditorReady (editor) {
-        this.editor = editor
-        console.log('the editor is readied!', editor)
-      },
-      onEditorFocus (editor) {
-        console.log('the editor is focus!', editor)
       }
     }
   }
 </script>
 
-<style scoped>
+<style>
+/* fix horrible style scoping */
 
+  .markdown h1 {
+    font-size: 56px
+  }
+
+.markdown h2 {
+    font-size: 28px
+  }
+
+.markdown  code {
+    width: 100%;
+  }
 </style>

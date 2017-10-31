@@ -7,6 +7,7 @@
         <!-- use object instead? -->
         <logic
           v-for="logic in logics"
+          :key="logic.id"
           :name = "logic.name"
           :status = "logic.status"
           :lang = "logic.lang"

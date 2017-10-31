@@ -5,6 +5,9 @@ import App from './App'
 import router from './router'
 import Vuetify from 'vuetify'
 import store from './store'
+import VueMarkdown from 'vue-markdown'
+
+Vue.use(VueMarkdown)
 Vue.use(Vuetify)
 
 Vue.config.productionTip = false

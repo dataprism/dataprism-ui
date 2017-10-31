@@ -10,7 +10,7 @@
         ></v-text-field>
 
         <v-radio-group v-model="lang" :mandatory="true">
-          <v-radio v-for="item in items" :label="item.text" :value="item.val" dark></v-radio>
+          <v-radio v-for="item in items" :label="item.text" :value="item.val" :key="item.val" dark></v-radio>
         </v-radio-group>
       </v-form>
 

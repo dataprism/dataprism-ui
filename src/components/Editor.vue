@@ -42,7 +42,7 @@
 
 <script>
   import { codemirror } from 'vue-codemirror'
-  import dispatch from '../services/dispatch'
+  import logics from '../services/logics'
   import SendBtn from './SendBtn'
 
   export default {
@@ -97,7 +97,7 @@
         this.$store.commit('code', encode(this.code))
         this.$store.commit('send')
 
-        dispatch.send(this.$store.state.request)
+        logics.create(this.$store.state.request)
           .then(this.onSaveSuccess, this.onSaveError)
       },
       onSaveSuccess (resp) {

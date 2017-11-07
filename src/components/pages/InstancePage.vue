@@ -4,7 +4,7 @@
       <v-flex xs12 sm6 offset-sm3>
         <!-- use object instead? -->
         <logic
-          v-for="logic in logics"
+          v-for="logic in logics " 
           v-on:edit="onEdit"
           :key="logic.id"
           :name = "logic.name"

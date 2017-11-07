@@ -14,9 +14,7 @@
     components: {Editor},
     computed: {
       logic () {
-        return this.$route.query.logicId ? this.$store.state.logics.filter(el => {
-          return el.id === this.$route.query.logicId
-        }).shift() : null
+        return this.$route.query.logicId ? this.$store.state.logics[this.$route.query.logicId] : null
       }
     },
     name: 'EditPage',

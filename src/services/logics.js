@@ -8,8 +8,11 @@ export default {
     return call(uri, 'GET', 'logics', logicName)
   },
   create (logicObj) {
-    console.log('creating logic...', logicObj)
-    // return call(uri, 'POST', 'logics', undefined, logicObj)
+    const payload = Object.assign({}, logicObj)
+    payload.code = encode(payload.code)
+
+    console.log('creating logic...', payload)
+    // return call(uri, 'POST', 'logics', undefined, payload)
 
     // -- mock response
     return mockResp({
@@ -50,4 +53,8 @@ function mockResp (resp, t) {
       resolve(resp)
     }, t)
   })
+}
+
+function encode (string) {
+  return window.btoa(string)
 }

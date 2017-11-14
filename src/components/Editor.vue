@@ -129,10 +129,6 @@
       }
     }
   }
-
-//  function encode (string) {
-//    return window.btoa(string)
-//  }
 </script>
 
 <style scoped>

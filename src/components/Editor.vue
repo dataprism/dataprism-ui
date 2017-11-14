@@ -35,7 +35,8 @@
         ></codemirror>
       </v-flex>
 
-      <send-btn v-on:send="onEditorSave" :busy="busy"></send-btn>
+      <send-btn v-on:send="onEditorSave(logic.id)" :busy="busy"></send-btn>
+      <v-chip v-bind:color="persisted ? colorSaved : colorUnsaved" text-color="white">{{ persisted ? copySaved : copyUnsaved }}</v-chip>
     </v-layout>
   </v-container>
 </template>
@@ -52,6 +53,9 @@
     computed: {
       busy () {
         return this.$store.state.request.pending
+      },
+      persisted () {
+        return this.$store.state.logics[this.logic['id']].persisted
       }
     },
     data () {
@@ -59,6 +63,10 @@
         valid: false,
         code: '<!-- code goes here -->',
         name: '',
+        copySaved: 'changes have been saved',
+        copyUnsaved: 'changes not saved',
+        colorSaved: 'primary',
+        colorUnsaved: 'secondary',
         items: [
           { text: 'JavaScript', val: 'js' },
           { text: 'Java', val: 'java' },
@@ -93,15 +101,19 @@
       onEditorCodeChange (newCode) {
         // -- do nothing
       },
-      onEditorSave () {
-        this.$store.commit('code', encode(this.code))
-        this.$store.commit('send')
+      onEditorSave (logicId) {
+        this.$store.commit('code', {
+          id: this.logic.id,
+          code: this.logic.code
+        })
+        this.$store.commit('send', { id: this.logic.id })
 
-        logics.create(this.$store.state.request)
+        // -- does this belong here?
+        logics.create(this.$store.state.logics[logicId])
           .then(this.onSaveSuccess, this.onSaveError)
       },
       onSaveSuccess (resp) {
-        this.$store.commit('receive')
+        this.$store.commit('receive', { id: this.logic.id })
 
         const valOnResp = true
 
@@ -118,9 +130,9 @@
     }
   }
 
-  function encode (string) {
-    return window.btoa(string)
-  }
+//  function encode (string) {
+//    return window.btoa(string)
+//  }
 </script>
 
 <style scoped>

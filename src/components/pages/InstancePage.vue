@@ -4,15 +4,14 @@
       <v-flex xs12 sm6 offset-sm3>
         <!-- use object instead? -->
         <logic
-          v-for="logic in logics " 
+          v-for="(logic, key) in logics "
           v-on:edit="onEdit"
-          :key="logic.id"
           :name = "logic.name"
           :status = "logic.status"
           :lang = "logic.lang"
           :code = "logic.description"
           :version = "logic.version"
-          :id = "logic.id"
+          :id = "key"
         ></logic>
       </v-flex>
     </v-layout>

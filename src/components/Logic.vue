@@ -7,7 +7,9 @@
         <div class="headline">{{ name }}</div>
         <v-spacer></v-spacer>
 
-        <v-chip outline v-show="!show" color="info">{{ lang }}</v-chip>
+        <v-chip outline v-show="!show" color="accent">293 events/s</v-chip>
+        <v-chip outline v-show="!show" color="primary">65 ms</v-chip>
+        <v-chip outline v-show="!show" color="primary">{{ lang }}</v-chip>
 
         <v-btn v-show="show" flat icon color="primary" @click.native="onEdit(id)">
           <v-icon>mode_edit</v-icon>

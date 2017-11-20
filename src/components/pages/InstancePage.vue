@@ -1,7 +1,7 @@
 <template>
   <v-container fluid fill-height>
     <v-layout column>
-      <v-flex xs12 sm6 offset-sm3>
+      <v-flex xs12 sm10 offset-sm1>
         <!-- use object instead? -->
         <logic
           v-for="(logic, key) in logics "

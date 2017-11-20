@@ -6,13 +6,13 @@
       <v-toolbar-title>Data Room</v-toolbar-title>
 
       <v-spacer></v-spacer>
-      <v-btn icon>
-        <v-icon>sync</v-icon>
+      <v-btn icon @click="onNav('Sync')" class="nav-sync">
+        <v-icon>swap_horiz</v-icon>
       </v-btn>
       <v-btn icon @click="onNav('Instances')">
         <v-icon>code</v-icon>
       </v-btn>
-      <v-btn icon>
+      <v-btn icon  @click="onNav('Labs')">
         <v-icon>search</v-icon>
       </v-btn>
     </v-toolbar>
@@ -34,6 +34,7 @@ export default {
   name: 'app',
   data () {
     return {
+      drawer: false
     }
   },
   methods: {
@@ -47,4 +48,8 @@ export default {
 
 <style lang="stylus">
   @require './stylus/main'
+
+  .nav-sync{
+    transform: rotate(-45deg)
+  }
 </style>

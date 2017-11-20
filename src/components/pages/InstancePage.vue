@@ -3,26 +3,26 @@
     <v-layout column>
       <v-flex xs12 sm10 offset-sm1>
         <!-- use object instead? -->
-        <logic
+        <list-item
           v-for="(logic, key) in logics "
           v-on:edit="onEdit"
-          :name = "logic.name"
+          type="logic"
+          :title = "logic.name"
           :status = "logic.status"
-          :lang = "logic.lang"
-          :code = "logic.description"
-          :version = "logic.version"
+          :description = "logic.description"
+          :properties = "logic.properties"
           :id = "key"
-        ></logic>
+        ></list-item>
       </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script>
-  import Logic from '@/components/Logic'
+  import ListItem from '@/components/ListItem'
 
   export default {
-    components: {Logic},
+    components: {ListItem},
     name: 'InstancePage',
     computed: {
       logics () {

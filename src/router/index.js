@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import EditPage from '@/components/pages/EditPage'
-import InstancePage from '@/components/pages/InstancePage'
+import Logics from '@/components/pages/logics/Logics'
+import LogicPage from '@/components/pages/LogicPage'
 import SyncPage from '@/components/pages/SyncPage'
 import Connectors from '@/components/pages/sync/Connectors'
 import Links from '@/components/pages/sync/Links'
@@ -14,13 +15,20 @@ export default new Router({
   routes: [
     {
       path: '/edit',
-      name: 'Editor',
+      // name: 'Editor',
       component: EditPage
     },
     {
-      path: '/',
-      name: 'Instances',
-      component: InstancePage
+      path: '/logic',
+      name: 'Logic',
+      component: LogicPage,
+      children: [
+        {
+          path: 'logics',
+          name: 'Logics',
+          component: Logics
+        }
+      ]
     },
     {
       path: '/sync',
@@ -41,12 +49,12 @@ export default new Router({
     },
     {
       path: '/labs',
-      name: 'Labs',
+      // name: 'Labs',
       component: LabsPage
     },
     {
       path: '/about',
-      name: 'About',
+      // name: 'About',
       component: AboutPage
     }
   ]

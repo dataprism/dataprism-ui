@@ -10,7 +10,7 @@
           <v-btn icon @click="onNav('Sync')" class="nav-sync">
             <v-icon>swap_horiz</v-icon>
           </v-btn>
-          <v-btn icon @click="onNav('Instances')">
+          <v-btn icon @click="onNav('/logic')">
             <v-icon>code</v-icon>
           </v-btn>
           <v-btn icon  @click="onNav('Labs')">
@@ -34,9 +34,8 @@ export default {
     }
   },
   methods: {
-    onNav (name) {
-      this.title = 'Dataprism ' + name
-      this.$router.push({ name: name })
+    onNav (path) {
+      this.$router.push({ path: path })
     }
   }
 }

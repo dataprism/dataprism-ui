@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import EditPage from '@/components/pages/EditPage'
 import InstancePage from '@/components/pages/InstancePage'
 import SyncPage from '@/components/pages/SyncPage'
+import Connectors from '@/components/pages/sync/Connectors'
+import Links from '@/components/pages/sync/Links'
 import LabsPage from '@/components/pages/LabsPage'
 import AboutPage from '@/components/pages/AboutPage'
 
@@ -23,7 +25,19 @@ export default new Router({
     {
       path: '/sync',
       name: 'Sync',
-      component: SyncPage
+      component: SyncPage,
+      children: [
+        {
+          path: 'connectors',
+          name: 'Connectors',
+          component: Connectors
+        },
+        {
+          path: 'links',
+          name: 'Links',
+          component: Links
+        }
+      ]
     },
     {
       path: '/labs',

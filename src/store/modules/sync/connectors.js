@@ -44,7 +44,7 @@ const actions = {
     )
   },
   UPDATE (context, data) {
-    return axios.put(`${this.getters['api/syncApi']}/connectors/${data.id}`, data).then(
+    return axios.post(`${this.getters['api/syncApi']}/connectors`, data).then(
       () => {
         context.commit('SET_EDIT_MODE', false)
         context.commit('notifications/ADD', { message: 'Saved.', level: 'info' }, { root: true })

@@ -3,7 +3,7 @@
     <v-toolbar app></v-toolbar>
     <v-toolbar app fixed clipped-left>
       <v-icon>change_history</v-icon>
-      <v-toolbar-title>Data Room</v-toolbar-title>
+      <v-toolbar-title>{{ title }}</v-toolbar-title>
 
       <v-spacer></v-spacer>
       <v-btn icon @click="onNav('Sync')" class="nav-sync">
@@ -34,12 +34,12 @@ export default {
   name: 'app',
   data () {
     return {
-      drawer: false
+      title: 'Dataprism  Dataroom'
     }
   },
   methods: {
     onNav (name) {
-      this.drawer = !this.drawer
+      this.title = 'Dataprism ' + name
       this.$router.push({ name: name })
     }
   }

@@ -43,7 +43,6 @@
 
 <script>
   import { codemirror } from 'vue-codemirror'
-  import logics from '../services/logics'
   import SendBtn from './SendBtn'
 
   export default {
@@ -109,8 +108,7 @@
         this.$store.commit('send', { id: this.logic.id })
 
         // -- does this belong here?
-        logics.create(this.$store.state.logics[logicId])
-          .then(this.onSaveSuccess, this.onSaveError)
+        console.log('commit logic edit')
       },
       onSaveSuccess (resp) {
         this.$store.commit('receive', { id: this.logic.id })

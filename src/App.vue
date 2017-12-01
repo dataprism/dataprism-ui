@@ -14,7 +14,7 @@
             <v-icon>code</v-icon>
           </v-btn>
           <v-btn icon  @click="onNav('Labs')">
-            <v-icon>search</v-icon>
+            <v-icon>equalizer</v-icon>
           </v-btn>
         </v-toolbar>
         <router-view>
@@ -22,23 +22,59 @@
         </router-view>
       </v-content>
     </main>
+    <v-snackbar
+      :timeout="3000"
+      :color="snackColor(level)"
+      v-model="display"
+    >
+      {{ message }}
+      <v-btn dark flat @click.native="display = false">Close</v-btn>
+    </v-snackbar>
   </v-app>
 </template>
 
 <script>
-export default {
-  name: 'app',
-  data () {
-    return {
-      title: 'Dataprism  Dataroom'
-    }
-  },
-  methods: {
-    onNav (path) {
-      this.$router.push({ path: path })
+  import { mapState } from 'vuex'
+
+  export default {
+    name: 'app',
+    data () {
+      return {
+        title: 'Dataprism  Dataroom'
+      }
+    },
+    computed: {
+      ...mapState('notifications', {
+        level: state => (state.notification ? state.notification.level : null),
+        message: state => (state.notification ? state.notification.message : null)
+      }),
+      display: {
+        get () {
+          return !!this.$store.state.notifications.notification
+        },
+        set (v) {
+          if (!v) {
+            this.$store.commit('notifications/CLEAR')
+          }
+        }
+      }
+    },
+    methods: {
+      close () {
+        this.$store.commit('notifications/CLEAR')
+      },
+      snackColor (level) {
+        if (level === 'info') return 'green'
+        if (level === 'warning') return 'yellow'
+        if (level === 'error') return 'red'
+
+        return 'grey'
+      },
+      onNav (name) {
+        this.$router.push({ name: name })
+      }
     }
   }
-}
 </script>
 
 <style lang="stylus">

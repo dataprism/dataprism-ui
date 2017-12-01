@@ -9,7 +9,7 @@
               </v-card-title>
               <v-card-actions>
                 <v-btn flat dark @click="search()">Try again</v-btn>
-                <v-btn flat dark @click="onCreate()">Create connector</v-btn>
+                <v-btn flat dark @click.native.stop="edit()">Create connector</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -18,15 +18,15 @@
         <v-layout v-if="connectors.length" column>
           <v-flex xs12 sm10 offset-sm1>
             <list-item
-              v-for="(connector, key) in connectors "
-              v-on:edit="onEdit"
+              v-for="connector in connectors "
+              @edit="edit(connector)"
               type="connector"
               :title = "connector.name"
               :status = "connector.status"
               :description = "connector.description"
               :properties = "connector.properties"
-              :id = "key"
-              :key="key"
+              :id = "connector.id"
+              :key="connector.id"
             ></list-item>
           </v-flex>
         </v-layout>
@@ -60,6 +60,8 @@
               v-model="connector.name"
               required
             ></v-text-field>
+            <span class="subheader">properties</span>
+            <editable-grid :value="connector.properties" idField="key" titleField="key" descriptionField="description" ></editable-grid>
           </v-form>
         </v-card-text>
         <v-card-actions>
@@ -80,9 +82,12 @@
 <script>
   import ListItem from '@/components/ListItem'
   import { mapGetters, mapActions } from 'vuex'
+  import EditableGrid from '../../EditableGrid'
 
   export default {
-    components: {ListItem},
+    components: {
+      EditableGrid,
+      ListItem},
     name: 'Connectors',
     computed: {
       ...mapGetters({
@@ -117,10 +122,10 @@
         this.$store.dispatch('connectors/START_EDITING')
       },
       create () {
-        this.$store.dispatch('connectors/START_EDITING')
+        this.$store.dispatch('connectors/CREATE', this.connector)
       },
       update () {
-        this.$store.dispatch('connectors/START_EDITING', this.connector)
+        this.$store.dispatch('connectors/UPDATE', this.connector)
       },
       ...mapActions({
         search: 'connectors/SEARCH'

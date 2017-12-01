@@ -7,6 +7,11 @@ const state = {
 }
 
 const getters = {
+  logicById (s, getters) {
+    return (id) => {
+      return s.logics.find(logic => logic.id === id)
+    }
+  },
   logics (s) {
     return s.logics
   },

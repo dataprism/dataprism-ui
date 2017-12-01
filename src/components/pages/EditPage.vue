@@ -1,6 +1,5 @@
 <template>
   <div class="view page-edit">
-
     <editor :logic="logic"></editor>
 
 
@@ -9,12 +8,18 @@
 
 <script>
   import Editor from '../Editor'
+  import { mapGetters } from 'vuex'
 
   export default {
     components: {Editor},
     computed: {
+      ...mapGetters({
+        logics: 'logics/logics',
+        logicById: 'logics/logicById'
+      }),
       logic () {
-        return this.$route.query.logicId ? this.$store.state.logics[this.$route.query.logicId] : null
+        const logicId = this.$route.path.split('/').pop()
+        return Object.assign({}, this.logicById(logicId))
       }
     },
     name: 'EditPage',

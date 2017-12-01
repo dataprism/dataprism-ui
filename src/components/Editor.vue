@@ -5,8 +5,8 @@
       <v-flex xs12>
         <v-form v-model="valid">
           <v-text-field
-            label="Snippet name"
-            v-model="logic.name"
+            label="Logic name"
+            v-model="logic.id"
             :rules="nameRules"
             :counter="10"
             required
@@ -21,7 +21,7 @@
       <v-flex xs6>
         <codemirror
           class="align-left"
-          v-model="logic.code"
+          v-model="version.code"
           :options="editorOptionsCode"
           @change="onEditorCodeChange"
         ></codemirror>
@@ -35,8 +35,8 @@
         ></codemirror>
       </v-flex>
 
-      <send-btn v-on:send="onEditorSave(logic.id)" :busy="busy"></send-btn>
-      <v-chip v-bind:color="persisted ? colorSaved : colorUnsaved" text-color="white">{{ persisted ? copySaved : copyUnsaved }}</v-chip>
+      <!--<send-btn v-on:send="onEditorSave(logic.id)" :busy="busy"></send-btn>-->
+      <!--<v-chip v-bind:color="persisted ? colorSaved : colorUnsaved" text-color="white">{{ persisted ? copySaved : copyUnsaved }}</v-chip>-->
     </v-layout>
   </v-container>
 </template>
@@ -44,23 +44,31 @@
 <script>
   import { codemirror } from 'vue-codemirror'
   import SendBtn from './SendBtn'
+  import { mapGetters } from 'vuex'
 
   export default {
     components: {codemirror, SendBtn},
     name: 'Editor',
     props: ['logic'],
     computed: {
+      ...mapGetters({
+        logicVersions: 'logicVersions/logicVersions'
+      }),
       busy () {
-        return this.$store.state.request.pending
+        return true
       },
       persisted () {
-        return this.$store.state.logics[this.logic['id']].persisted
+        return true
       }
     },
     data () {
       return {
         valid: false,
-        code: '<!-- code goes here -->',
+        version: {
+          version: 0,
+          language: '',
+          code: 'test'
+        },
         name: '',
         copySaved: 'changes have been saved',
         copyUnsaved: 'changes not saved',
@@ -125,6 +133,18 @@
         this.$store.commit('receive')
         console.warn(err)
       }
+    },
+    created () {
+      // -- check if logic exists, and fetch it if it doesn't
+
+      // -- fetch latest logic version and load code into editor
+      console.log('fetching logic versions')
+      this.$store.dispatch('logicVersions/SEARCH', this.logic.id)
+        .then(() => {
+          // -- make deep copy to respect state immutability
+          this.version = Object.assign({}, this.logicVersions[this.logicVersions.length - 1])
+          this.version.code = atob(this.version.code)
+        }, console.log)
     }
   }
 </script>

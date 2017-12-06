@@ -2,7 +2,8 @@ import axios from 'axios'
 
 const state = {
   links: [],
-  editMode: false
+  editMode: false,
+  connector: {}
 }
 
 const getters = {
@@ -11,6 +12,9 @@ const getters = {
   },
   editing (s) {
     return s.editMode
+  },
+  connector (s) {
+    return s.connector
   }
 }
 
@@ -21,6 +25,9 @@ const mutations = {
   },
   SET_EDIT_MODE (s, editMode) {
     s.editMode = editMode
+  },
+  SET_CONNECTOR (s, connector) {
+    s.connector = connector
   }
 }
 
@@ -63,11 +70,19 @@ const actions = {
       response => context.commit('notifications/ADD', { message: response.response.data.message, level: 'error' }, { root: true })
     )
   },
-  START_EDITING (context) {
+  START_EDITING (context, link) {
     context.commit('SET_EDIT_MODE', true)
+
+    if (link && link.connector_id) {
+      return axios.get(`${this.getters['api/syncApi']}/connectors/${link.connector_id}`).then(
+        response => context.commit('SET_CONNECTOR', response.data),
+        response => context.commit('notifications/ADD', { message: response.response.data.message, level: 'error' }, { root: true })
+      )
+    }
   },
   STOP_EDITING (context) {
     context.commit('SET_EDIT_MODE', false)
+    context.commit('SET_CONNECTOR', {})
   }
 }
 

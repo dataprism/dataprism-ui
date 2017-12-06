@@ -27,6 +27,10 @@ export default new Router({
           path: 'logics',
           name: 'Logics',
           component: Logics
+        },
+        {
+          path: ':id',
+          component: EditPage
         }
       ]
     },

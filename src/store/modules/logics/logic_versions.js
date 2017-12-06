@@ -7,6 +7,7 @@ const state = {
 
 const getters = {
   logicVersions (s) {
+    console.log('getting logic versions')
     return s.logicVersions
   },
   editing (s) {
@@ -17,6 +18,7 @@ const getters = {
 /* eslint-disable no-param-reassign */
 const mutations = {
   SET_LOGIC_VERSIONS (s, data) {
+    console.log('setting logic versions...', data)
     s.logicVersions = data
   },
   SET_EDIT_MODE (s, editMode) {
@@ -28,17 +30,17 @@ const actions = {
   SEARCH (context, logicId) {
     context.commit('SET_LOGIC_VERSIONS', [])
 
-    return axios.get(`${this.getters['api/logicsApi']}/logics/${logicId}`).then(
+    return axios.get(`${this.getters['api/logicsApi']}/logics/${logicId}/versions`).then(
       response => context.commit('SET_LOGIC_VERSIONS', response.data),
       response => context.commit('notifications/ADD', { message: response.response.data.message, level: 'error' }, { root: true })
     )
   },
-  CREATE (context, logicId, data) {
-    return axios.post(`${this.getters['api/logicsApi']}/logics/${logicId}`, data).then(
+  CREATE (context, { logicId, data }) {
+    return axios.post(`${this.getters['api/logicsApi']}/logics/${logicId}/versions`, data).then(
       () => {
         context.commit('SET_EDIT_MODE', false)
         context.commit('notifications/ADD', { message: 'Created.', level: 'info' }, { root: true })
-        context.dispatch('SEARCH')
+        context.dispatch('SEARCH', logicId)
       },
       response => context.commit('notifications/ADD', { message: response.response.data.message, level: 'error' }, { root: true })
     )

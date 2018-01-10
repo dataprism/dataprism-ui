@@ -81,7 +81,7 @@
   /* eslint-disable */
   import ListItem from '@/components/ListItem'
   import { mapGetters } from 'vuex'
-  import { placeholder } from '@/utils/placeholder'
+  import placeholder from '@/utils/placeholder'
 
   export default {
     components: {ListItem},
@@ -132,7 +132,7 @@
         this.$store.dispatch('logics/CREATE', {id: this.logic.id, description: placeholder.snippets.markdown })
           .then(() => this.$store.dispatch('logicVersions/CREATE', {
             logicId: this.logic.id,
-            data: { language: 'javascript', code:btoa(placeholder.snippets.javascript) }
+            data: { language: 'javascript', code: btoa(placeholder.snippets.javascript) }
           }), console.warn)
           .then(this.created, console.warn)
       },

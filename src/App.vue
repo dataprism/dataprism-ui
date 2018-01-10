@@ -10,7 +10,7 @@
           <v-btn icon @click="onNav('Sync')" class="nav-sync">
             <v-icon>swap_horiz</v-icon>
           </v-btn>
-          <v-btn icon @click="onNav('/logic')">
+          <v-btn icon @click="onNav('Logic')">
             <v-icon>code</v-icon>
           </v-btn>
           <v-btn icon  @click="onNav('Labs')">

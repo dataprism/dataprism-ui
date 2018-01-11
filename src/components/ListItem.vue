@@ -1,5 +1,5 @@
 <template>
-  <v-card class="ma-3">
+  <v-card class="ma-3 list-item" @click.native="onEdit(id)">
     <v-card-actions class="secondary">
       <section class="status" v-if="status">
         <v-icon left v-if="status == 'error'" color="orange">error_outline</v-icon>
@@ -14,20 +14,7 @@
         <v-chip outline v-for="prop in properties" :color="prop.color">{{ prop.content }}</v-chip>
       </section>
 
-      <v-btn v-show="expanded" flat icon color="primary" @click.native="onEdit(id)">
-        <v-icon>mode_edit</v-icon>
-      </v-btn>
-
-      <v-btn icon @click.native="onToggleExpand()">
-        <v-icon>{{ expanded ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
-      </v-btn>
     </v-card-actions>
-
-    <v-slide-y-transition>
-      <v-card-text v-show="expanded">
-        <vue-markdown class="markdown" :source="description"></vue-markdown>
-      </v-card-text>
-    </v-slide-y-transition>
   </v-card>
 </template>
 
@@ -42,14 +29,9 @@
     props: ['status', 'type', 'title', 'properties', 'description', 'id'],
     data () {
       return {
-        expanded: false
       }
     },
     methods: {
-      onToggleExpand () {
-        this.expanded = !this.expanded
-      },
-
       onEdit (logicId) {
         this.$emit('edit', logicId)
       }
@@ -58,7 +40,7 @@
   }
 </script>
 
-<style>
+<style scoped lang="scss">
   /* fix horrible style scoping */
 
   .markdown h1 {
@@ -72,4 +54,7 @@
   .markdown  code {
     width: 100%;
   }
+
+  .list-item:hover { cursor: pointer }
+
 </style>

@@ -323,12 +323,23 @@
   .fade-enter, .fade-leave-to, .fade-leave-active {
     opacity: 0;
   }
-  /*.input-group--text-field input { color: red; text-align: center; }*/
 </style>
 
 <style>
   .CodeMirror {
     height: 100% !important;
+  }
+
+  .markdown h1 {
+    font-size: 56px
+  }
+
+  .markdown h2 {
+    font-size: 28px
+  }
+
+  .markdown  code {
+    width: 100%;
   }
 
   .input-instances input { text-align: center; }

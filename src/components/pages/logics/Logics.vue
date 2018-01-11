@@ -25,16 +25,16 @@
               v-model="logic.id"
               required
               :disabled="mode === 'edit'"
-            ></v-text-field>
+            />
             <v-text-field
               label="Name"
               v-model="logic.name"
               required
-            ></v-text-field>
+            />
           </v-form>
         </v-card-text>
         <v-card-actions>
-          <v-spacer></v-spacer>
+          <v-spacer/>
           <v-btn v-if="mode === 'create'" class="logic_base" @click="create()">
             create
           </v-btn>
@@ -66,12 +66,12 @@
           v-for="(logic, key) in logics "
           v-on:edit="onEdit"
           type="logic"
-          :title = "logic.id"
-          :status = "logic.status"
-          :description = "logic.description"
-          :properties = "logic.properties"
-          :id = "logic.id"
-        ></list-item>
+          :title="logic.id"
+          :status="logic.status"
+          :description="logic.description"
+          :properties="placeholder.properties"
+          :id="logic.id"
+        />
       </v-flex>
     </v-layout>
   </v-container>
@@ -106,6 +106,14 @@
     data () {
       return {
         mode: '',
+        placeholder: {
+          properties: [
+            {
+              color: "success",
+              content: "Ok"
+            }
+          ]
+        },
         logic: {
           valid: false,
           id: '',

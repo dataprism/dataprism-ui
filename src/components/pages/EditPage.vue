@@ -1,6 +1,6 @@
 <template>
   <div class="view page-edit">
-    <editor :logic="logic"></editor>
+    <editor :logic="logic" fill-height></editor>
 
 
   </div>
@@ -49,4 +49,11 @@ li {
 a {
   color: #42b983;
 }
+
+  .view.page-edit{
+    position: fixed;
+    width: 100%;
+    height: calc(100% - 64px - 48px);
+    overflow-x: hidden;
+  }
 </style>

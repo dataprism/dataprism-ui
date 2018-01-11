@@ -1,7 +1,7 @@
 <template>
-  <v-app id="inspire" dark>
+  <v-app id="inspire" dark fill-height>
     <main>
-      <v-content>
+      <v-content fill-height>
         <v-toolbar app flat fixed clipped-left>
           <v-icon>change_history</v-icon>
           <v-toolbar-title>{{ title }}</v-toolbar-title>

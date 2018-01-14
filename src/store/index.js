@@ -8,6 +8,7 @@ import Connectors from './modules/sync/connectors'
 
 import Notifications from './modules/notifications'
 import Api from './modules/api'
+import Nodes from './modules/core/nodes'
 
 Vue.use(Vuex)
 
@@ -18,6 +19,7 @@ export default new Vuex.Store({
     links: Links,
     connectors: Connectors,
     notifications: Notifications,
-    api: Api
+    api: Api,
+    nodes: Nodes
   }
 })

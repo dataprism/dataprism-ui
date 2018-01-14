@@ -7,6 +7,9 @@
           <v-toolbar-title>{{ title }}</v-toolbar-title>
 
           <v-spacer></v-spacer>
+          <v-btn icon @click="onNav('Nodes')">
+            <v-icon>dns</v-icon>
+          </v-btn>
           <v-btn icon @click="onNav('Sync')" class="nav-sync">
             <v-icon>swap_horiz</v-icon>
           </v-btn>

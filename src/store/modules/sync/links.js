@@ -35,13 +35,13 @@ const actions = {
   SEARCH (context) {
     context.commit('SET_LINKS', [])
 
-    return axios.get(`${this.getters['api/syncApi']}/links`).then(
+    return axios.get(`${this.getters['api/url']}/links`).then(
       response => context.commit('SET_LINKS', response.data),
       response => context.commit('notifications/ADD', { message: response.response.data.message, level: 'error' }, { root: true })
     )
   },
   CREATE (context, link) {
-    return axios.post(`${this.getters['api/syncApi']}/links`, link).then(
+    return axios.post(`${this.getters['api/url']}/links`, link).then(
       () => {
         context.commit('SET_EDIT_MODE', false)
         context.commit('notifications/ADD', { message: 'Created.', level: 'info' }, { root: true })
@@ -51,7 +51,7 @@ const actions = {
     )
   },
   UPDATE (context, data) {
-    return axios.put(`${this.getters['api/syncApi']}/links/${data.id}`, data).then(
+    return axios.put(`${this.getters['api/url']}/links/${data.id}`, data).then(
       () => {
         context.commit('SET_EDIT_MODE', false)
         context.commit('notifications/ADD', { message: 'Saved.', level: 'info' }, { root: true })
@@ -61,7 +61,7 @@ const actions = {
     )
   },
   DELETE (context, data) {
-    return axios.delete(`${this.getters['api/syncApi']}/links/${data.id}`).then(
+    return axios.delete(`${this.getters['api/url']}/links/${data.id}`).then(
       () => {
         context.commit('SET_EDIT_MODE', false)
         context.commit('notifications/ADD', { message: 'Removed.', level: 'info' }, { root: true })
@@ -74,7 +74,7 @@ const actions = {
     context.commit('SET_EDIT_MODE', true)
 
     if (link && link.connector_id) {
-      return axios.get(`${this.getters['api/syncApi']}/connectors/${link.connector_id}`).then(
+      return axios.get(`${this.getters['api/url']}/connectors/${link.connector_id}`).then(
         response => context.commit('SET_CONNECTOR', response.data),
         response => context.commit('notifications/ADD', { message: response.response.data.message, level: 'error' }, { root: true })
       )

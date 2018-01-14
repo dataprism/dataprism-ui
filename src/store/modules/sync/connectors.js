@@ -28,13 +28,13 @@ const actions = {
   SEARCH (context) {
     context.commit('SET_CONNECTORS', [])
 
-    return axios.get(`${this.getters['api/syncApi']}/connectors`).then(
+    return axios.get(`${this.getters['api/url']}/connectors`).then(
       response => context.commit('SET_CONNECTORS', response.data),
       response => context.commit('notifications/ADD', { message: response.response.data.message, level: 'error' }, { root: true })
     )
   },
   CREATE (context, connector) {
-    return axios.post(`${this.getters['api/syncApi']}/connectors`, connector).then(
+    return axios.post(`${this.getters['api/url']}/connectors`, connector).then(
       () => {
         context.commit('SET_EDIT_MODE', false)
         context.commit('notifications/ADD', { message: 'Created.', level: 'info' }, { root: true })
@@ -44,7 +44,7 @@ const actions = {
     )
   },
   UPDATE (context, data) {
-    return axios.post(`${this.getters['api/syncApi']}/connectors`, data).then(
+    return axios.post(`${this.getters['api/url']}/connectors`, data).then(
       () => {
         context.commit('SET_EDIT_MODE', false)
         context.commit('notifications/ADD', { message: 'Saved.', level: 'info' }, { root: true })
@@ -54,7 +54,7 @@ const actions = {
     )
   },
   DELETE (context, data) {
-    return axios.delete(`${this.getters['api/syncApi']}/connectors/${data.id}`).then(
+    return axios.delete(`${this.getters['api/url']}/connectors/${data.id}`).then(
       () => {
         context.commit('SET_EDIT_MODE', false)
         context.commit('notifications/ADD', { message: 'Removed.', level: 'info' }, { root: true })

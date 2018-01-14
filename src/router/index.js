@@ -8,6 +8,7 @@ import Connectors from '@/components/pages/sync/Connectors'
 import Links from '@/components/pages/sync/Links'
 import LabsPage from '@/components/pages/LabsPage'
 import AboutPage from '@/components/pages/AboutPage'
+import NodesPage from '@/components/pages/NodesPage'
 
 Vue.use(Router)
 
@@ -50,6 +51,11 @@ export default new Router({
           component: Links
         }
       ]
+    },
+    {
+      path: '/nodes',
+      name: 'Nodes',
+      component: NodesPage
     },
     {
       path: '/labs',

@@ -1,15 +1,9 @@
 const state = {
-  base: {
-    logics: 'http://localhost:6300/v1',
-    sync: 'http://localhost:6400/v1',
-    labs: 'http://localhost:6500/v1'
-  }
+  url: 'http://localhost:6100/v1'
 }
 
 const getters = {
-  syncApi (s) { return s.base.sync },
-  logicsApi (s) { return s.base.logics },
-  labsApi (s) { return s.base.labs }
+  url (s) { return s.url }
 }
 
 /* eslint-disable no-param-reassign */

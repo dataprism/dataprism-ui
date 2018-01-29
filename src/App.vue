@@ -1,7 +1,7 @@
 <template>
-  <v-app id="inspire" dark>
+  <v-app id="inspire" dark fill-height>
     <main>
-      <v-content>
+      <v-content fill-height>
         <v-toolbar app flat fixed clipped-left>
           <v-icon>change_history</v-icon>
           <v-toolbar-title>{{ title }}</v-toolbar-title>
@@ -13,7 +13,7 @@
           <v-btn icon @click="onNav('Links')" class="nav-sync">
             <v-icon>swap_horiz</v-icon>
           </v-btn>
-          <v-btn icon @click="onNav('/logic')">
+          <v-btn icon @click="onNav('Logic')">
             <v-icon>code</v-icon>
           </v-btn>
           <v-btn icon  @click="onNav('Labs')">

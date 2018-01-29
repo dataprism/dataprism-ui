@@ -1,9 +1,9 @@
 const state = {
-  url: 'http://localhost:6100/v1'
+  logicsApi: 'http://localhost:6300/v1'
 }
 
 const getters = {
-  url (s) { return s.url }
+  logicsApi (s) { return s.logicsApi }
 }
 
 /* eslint-disable no-param-reassign */

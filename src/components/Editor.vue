@@ -300,6 +300,9 @@
   .description { height: 90%;}
 
   .scroll { overflow: scroll; }
+  ::-webkit-scrollbar {
+    display: none;
+  }
   .outline { border: 1px solid #eee; }
 
   .btn--floating.btn--small.btn--options {

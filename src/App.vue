@@ -10,7 +10,7 @@
           <v-btn icon @click="onNav('Nodes')">
             <v-icon>dns</v-icon>
           </v-btn>
-          <v-btn icon @click="onNav('Sync')" class="nav-sync">
+          <v-btn icon @click="onNav('Links')" class="nav-sync">
             <v-icon>swap_horiz</v-icon>
           </v-btn>
           <v-btn icon @click="onNav('Logic')">

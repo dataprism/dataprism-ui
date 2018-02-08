@@ -6,7 +6,7 @@
         <v-icon left v-if="status == 'ok'" color="lime">done</v-icon>
       </section>
 
-
+      <v-icon class="logics-icon">swap_horiz</v-icon>
       <div class="headline">{{ title }}</div>
       <v-spacer></v-spacer>
 
@@ -55,6 +55,9 @@
     width: 100%;
   }
 
+  .logics-icon{
+    transform: rotate(-45deg)
+  }
   .list-item:hover { cursor: pointer }
 
 </style>

@@ -53,7 +53,8 @@
       }),
       display: {
         get () {
-          return !!this.$store.state.notifications.notification
+          // return !!this.$store.state.notifications.notification
+          return false
         },
         set (v) {
           if (!v) {
